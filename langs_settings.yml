@@ -1,8 +1,8 @@
 Endlish:
-  font: "Mongolian Baiti"
+  font: "MS Shell Diq 2"
   symbol buttons point size: 34
   lineEdit button point size: 16
-  space button point size: 25
+  space button point size: 23
   up buttons point size: 18
   down buttons point size: 18
   copy button text: "Copy"

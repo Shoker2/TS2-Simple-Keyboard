@@ -274,6 +274,9 @@ class Ui_SimpleKeyboard(QMainWindow):
 		self.resized.connect(self.auto_resize) # Делаю ивент на изменение размера окна
 
 		self.pastePushButton.setShortcut(QKeySequence("Ctrl+V"))
+
+		self.close_shortcut = QShortcut(QKeySequence("Esc"), self) # Выход при 'esc'
+		self.close_shortcut.activated.connect(lambda: sys.exit(0))
 		
 		self.leftPushButton.clicked.connect(lambda: self.left_btn())
 		self.middlePushButton.clicked.connect(lambda: self.set_symbol(self.middlePushButton.text()))
