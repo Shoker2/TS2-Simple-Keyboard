@@ -241,11 +241,14 @@ class Ui_SimpleKeyboard(QMainWindow):
 		self.shiftPushButton.setObjectName("shiftPushButton")
 		self.horizontalLayout_3.addWidget(self.shiftPushButton)
 		self.mainVerticalLayout.addLayout(self.horizontalLayout_3)
-		spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-		self.mainVerticalLayout.addItem(spacerItem)
+		if config["General"]['use_botton_spacer'] == '1':
+			spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+			self.mainVerticalLayout.addItem(spacerItem)
+		
 		self.setCentralWidget(self.centralwidget)
 
-		# self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+		if config["General"]['FramelessWindowHint'] == '1':
+			self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
 		self.leftPushButton.setFocusPolicy(QtCore.Qt.NoFocus)
 		self.middlePushButton.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -476,8 +479,10 @@ if __name__ == "__main__":
 	if not os.path.isfile('./config.ini'):
 		config['General'] = {
 			'auto_close': '1',
+			'FramelessWindowHint': 0,
+			'use_botton_spacer': 1,
 			'width': 800,
-			'height': 400
+			'height': 400,
 		}
 		with open('./config.ini', 'w+', encoding='utf-8') as configfile:
 			config.write(configfile)
