@@ -17,6 +17,7 @@ from yaml.loader import SafeLoader
 
 import sys
 import os
+import configparser
 
 class Ui_SimpleKeyboard(QMainWindow):
 	resized = QtCore.pyqtSignal()
@@ -254,7 +255,9 @@ class Ui_SimpleKeyboard(QMainWindow):
 		self.copyPushButton.setFocusPolicy(QtCore.Qt.NoFocus)
 		self.pastePushButton.setFocusPolicy(QtCore.Qt.NoFocus)
 		self.clearPushButton.setFocusPolicy(QtCore.Qt.NoFocus)
-		self.setFocusPolicy(QtCore.Qt.NoFocus)
+
+		self.setFocus()
+		app.focusChanged.connect(self.onFocusChanged)
 
 		QtCore.QMetaObject.connectSlotsByName(self)
 
@@ -295,6 +298,10 @@ class Ui_SimpleKeyboard(QMainWindow):
 
 	def auto_resize(self):
 		self.verticalLayoutWidget.setGeometry(0,0, self.size().width(), self.size().height())
+	
+	def onFocusChanged(self):
+		if not self.isActiveWindow() and config["General"]['auto_close'] == '1':
+			self.close()
 	
 	def load_lang(self, id):
 		with open('./langs.yml', 'r', encoding="utf-8") as yml:
@@ -461,7 +468,18 @@ class Ui_SimpleKeyboard(QMainWindow):
 	def paste(self):
 		self.set_symbol(str(pyperclip.paste()))
 
-if __name__ == "__main__":		
+if __name__ == "__main__":
+	config = configparser.ConfigParser()
+
+	if not os.path.isfile('./config.ini'):
+		config['General'] = {
+			'auto_close': '1'
+		}
+		with open('./config.ini', 'w+', encoding='utf-8') as configfile:
+			config.write(configfile)
+
+	config.read('./config.ini', encoding='utf-8')
+
 	app = QtWidgets.QApplication(sys.argv)
 
 	global simple_keyboard

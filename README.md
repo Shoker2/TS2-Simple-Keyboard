@@ -2,7 +2,7 @@
 
 ![image](https://user-images.githubusercontent.com/66993983/213865476-f6c35e0b-36ef-49bb-b064-3226c053a430.png)
 
-- [TS2-Simple-Keyboard](#ts2-simple-keyboard)
+- [TS2 Simple Keyboard](#ts2-simple-keyboard)
 	- [How to use](#how-to-use)
 	- [How to setup](#how-to-setup)
 		- [How to add a language](#how-to-add-a-language)
@@ -43,6 +43,7 @@ There are 3 files in the application root folder:
 - langs.yml
 - langs_settings.yml
 - style.css
+- config.ini
 
 ![image](https://user-images.githubusercontent.com/66993983/213864828-694ea90e-e01d-47c0-9c74-30fe5395d456.png)
 
