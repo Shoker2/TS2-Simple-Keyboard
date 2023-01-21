@@ -16,6 +16,7 @@ import yaml
 from yaml.loader import SafeLoader
 
 import sys
+import os
 
 class Ui_SimpleKeyboard(QMainWindow):
 	resized = QtCore.pyqtSignal()
@@ -71,6 +72,10 @@ class Ui_SimpleKeyboard(QMainWindow):
 
 		if icon_path != '':
 			self.setWindowIcon(QtGui.QIcon(icon_path))
+		
+		if os.path.isfile('./style.css'):
+			with open('./style.css', 'r', encoding='utf-8') as style:
+				self.setStyleSheet(style.read())
 
 		self.setObjectName("SimpleKeyboard")
 		self.resize(800, 350)
@@ -237,7 +242,7 @@ class Ui_SimpleKeyboard(QMainWindow):
 		self.mainVerticalLayout.addLayout(self.horizontalLayout_3)
 		self.setCentralWidget(self.centralwidget)
 
-		self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+		# self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 
 		self.leftPushButton.setFocusPolicy(QtCore.Qt.NoFocus)
 		self.middlePushButton.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -389,9 +394,9 @@ class Ui_SimpleKeyboard(QMainWindow):
 				m_btn = self.alphet[n].lower()
 				r_btn = self.alphet[0].lower()
 		
-		self.leftPushButton.setText(f"{l_btn}")
+		self.leftPushButton.setText(f"{l_btn}\n←")
 		self.middlePushButton.setText(f"{m_btn}")
-		self.rightPushButton.setText(f"{r_btn}")
+		self.rightPushButton.setText(f"{r_btn}\n→")
 	
 	def change_btn(self):
 		self.load_lang(self.lang_id+1)
@@ -451,8 +456,7 @@ class Ui_SimpleKeyboard(QMainWindow):
 		pyperclip.copy(self.lineEdit.text())
 	
 	def paste(self):
-		self.lineEdit.setText(str(pyperclip.paste()))
-
+		self.set_symbol(str(pyperclip.paste()))
 
 if __name__ == "__main__":		
 	app = QtWidgets.QApplication(sys.argv)
