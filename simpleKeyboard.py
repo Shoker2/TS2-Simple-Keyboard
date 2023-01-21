@@ -79,7 +79,7 @@ class Ui_SimpleKeyboard(QMainWindow):
 				self.setStyleSheet(style.read())
 
 		self.setObjectName("SimpleKeyboard")
-		self.resize(800, 350)
+		self.resize(int(config["General"]['width']), int(config["General"]['height']))
 		self.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
 		self.centralwidget = QtWidgets.QWidget(self)
 		self.centralwidget.setObjectName("centralwidget")
@@ -241,6 +241,8 @@ class Ui_SimpleKeyboard(QMainWindow):
 		self.shiftPushButton.setObjectName("shiftPushButton")
 		self.horizontalLayout_3.addWidget(self.shiftPushButton)
 		self.mainVerticalLayout.addLayout(self.horizontalLayout_3)
+		spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+		self.mainVerticalLayout.addItem(spacerItem)
 		self.setCentralWidget(self.centralwidget)
 
 		# self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
@@ -473,7 +475,9 @@ if __name__ == "__main__":
 
 	if not os.path.isfile('./config.ini'):
 		config['General'] = {
-			'auto_close': '1'
+			'auto_close': '1',
+			'width': 800,
+			'height': 400
 		}
 		with open('./config.ini', 'w+', encoding='utf-8') as configfile:
 			config.write(configfile)
